@@ -1,18 +1,14 @@
 "use client";
 
+import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { CustomFormField } from "../CustomFormField";
-
-const formSchema = z.object({
-  username: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
-});
+import SubmitButton from "../SubmitButton";
+import { UserFormValidation } from "@/lib/validation";
 
 export enum FormFieldType {
   INPUT = "input",
@@ -25,14 +21,18 @@ export enum FormFieldType {
 }
 
 export default function PatientForm() {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const [isLoading, setIsLoading] = useState(false);
+
+  const form = useForm<z.infer<typeof UserFormValidation>>({
+    resolver: zodResolver(UserFormValidation),
     defaultValues: {
-      username: "",
+      name: "",
+      email: "",
+      phone: "",
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  function onSubmit(values: z.infer<typeof UserFormValidation>) {
     console.log(values);
   }
 
@@ -68,7 +68,7 @@ export default function PatientForm() {
           label="Phone no."
           placeholder="50 012 345"
         />
-        <Button type="submit">Submit</Button>
+        <SubmitButton isLoading={isLoading}>Get started</SubmitButton>
       </form>
     </Form>
   );
