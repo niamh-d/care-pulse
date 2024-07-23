@@ -1,5 +1,8 @@
 "use client";
 
+import "react-phone-number-input/style.css";
+import PhoneInput from "react-phone-number-input";
+
 import Image from "next/image";
 
 import { Input } from "@/components/ui/input";
@@ -14,6 +17,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { FormFieldType } from "./forms/PatientForm";
+
+import { E164Number } from "libphonenumber-js/core";
 
 interface CustomProps {
   control: Control<any>;
@@ -51,6 +56,31 @@ const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
               placeholder={placeholder}
               {...field}
               className="shad-input border-0"
+            />
+          </FormControl>
+        </div>
+      );
+    case FormFieldType.PHONE_INPUT:
+      return (
+        <div className="flex rounded-md border border-dark-500 bg-dark-400">
+          {iconSrc && (
+            <Image
+              src={iconSrc}
+              alt={iconAlt || "icon"}
+              height={24}
+              width={24}
+              className="ml-2"
+            />
+          )}
+          <FormControl>
+            <PhoneInput
+              defaultCountry="EE"
+              placeholder={placeholder}
+              international
+              withCountryCallingCode
+              value={field.value as E164Number | undefined}
+              onChange={field.onChange}
+              className="input-phone"
             />
           </FormControl>
         </div>
