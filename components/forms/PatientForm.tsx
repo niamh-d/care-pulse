@@ -10,6 +10,7 @@ import { Form } from "@/components/ui/form";
 import { CustomFormField } from "../CustomFormField";
 import SubmitButton from "../SubmitButton";
 import { UserFormValidation } from "@/lib/validation";
+import { createUser } from "@/lib/actions/patient.actions";
 
 export enum FormFieldType {
   INPUT = "input",
@@ -21,7 +22,7 @@ export enum FormFieldType {
   SKELETON = "skeleton",
 }
 
-export default async function PatientForm() {
+export default function PatientForm() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -42,11 +43,12 @@ export default async function PatientForm() {
     setIsLoading(true);
 
     try {
-      // const userData = { name, email, phone };
-      // const user = await createUser(userData);
-      // if (user) {
-      //   router.push(`/patients/${user.id}/register`);
-      // }
+      const userData = { name, email, phone };
+      const user = await createUser(userData);
+      if (user) {
+        console.log(user);
+        router.push(`/patients/${user.id}/register`);
+      }
     } catch (error) {
       console.log(error);
     }
