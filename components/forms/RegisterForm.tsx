@@ -18,6 +18,7 @@ import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { Doctors, GenderOptions, IdentificationTypes } from "@/constants";
 import { Label } from "../ui/label";
 import { SelectItem } from "../ui/select";
+import FileUploader from "../FileUploader";
 
 export default function RegisterForm({ user }: { user: User }) {
   const router = useRouter();
@@ -289,8 +290,25 @@ export default function RegisterForm({ user }: { user: User }) {
           fieldType={FormFieldType.SKELETON}
           name="identificationDocument"
           label="Copy of ID Document"
-          renderSkeleton={(field) => <FormControl>FileUpload</FormControl>}
+          renderSkeleton={(field) => (
+            <FormControl>
+              <FileUploader files={field.value} onChange={field.onChange} />
+            </FormControl>
+          )}
         />
+
+        <section className="space-y-6">
+          <div className="mb-9 space-y-1">
+            <h2 className="sub-header">Consent and Privacy</h2>
+          </div>
+        </section>
+
+        <CustomFormField
+          fieldType={FormFieldType.CHECKBOX}
+          control={form.control}
+          name="privacyConsent"
+          label="I consent to Privacy Policy and Terms of Service"
+        ></CustomFormField>
 
         <SubmitButton isLoading={isLoading}>Get started</SubmitButton>
       </form>
