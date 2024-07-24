@@ -9,11 +9,10 @@ import "react-datepicker/dist/react-datepicker.css";
 import Image from "next/image";
 
 import { Input } from "@/components/ui/input";
-import { Control, Form } from "react-hook-form";
+import { Control } from "react-hook-form";
 
 import {
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -24,6 +23,7 @@ import { FormFieldType } from "./forms/PatientForm";
 import { E164Number } from "libphonenumber-js/core";
 import { Select, SelectContent, SelectTrigger, SelectValue } from "./ui/select";
 import { Textarea } from "./ui/textarea";
+import { Checkbox } from "./ui/checkbox";
 
 interface CustomProps {
   control: Control<any>;
@@ -51,6 +51,8 @@ const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
     renderSkeleton,
     disabled,
     children,
+    name,
+    label,
   } = props;
 
   switch (fieldType) {
@@ -137,6 +139,21 @@ const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
           />
         </FormControl>
       );
+    case FormFieldType.CHECKBOX:
+      return (
+        <FormControl>
+          <div className="flex items-center gap-4">
+            <Checkbox
+              id={name}
+              checked={field.value}
+              onChange={field.onChange}
+            />
+            <label htmlFor={name} className="checkbox-label">
+              {label}
+            </label>
+          </div>
+        </FormControl>
+      );
     case FormFieldType.SKELETON:
       return renderSkeleton ? renderSkeleton(field) : null;
     default:
@@ -145,8 +162,7 @@ const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
 };
 
 export function CustomFormField(props: CustomProps) {
-  const { fieldType, name, label, placeholder, iconSrc, iconAlt, control } =
-    props;
+  const { fieldType, name, label, control } = props;
 
   return (
     <FormField

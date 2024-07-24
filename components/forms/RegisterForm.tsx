@@ -307,7 +307,7 @@ export default function RegisterForm({ user }: { user: User }) {
           fieldType={FormFieldType.CHECKBOX}
           control={form.control}
           name="privacyConsent"
-          label="I consent to Privacy Policy and Terms of Service"
+          label="I consent to the processing of my information per Privacy Policy and Terms of Service"
         ></CustomFormField>
 
         <SubmitButton isLoading={isLoading}>Get started</SubmitButton>
