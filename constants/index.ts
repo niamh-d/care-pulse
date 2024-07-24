@@ -10,7 +10,7 @@ export const PatientFormDefaultValues = {
   occupation: "",
   emergencyContactName: "",
   emergencyContactNumber: "",
-  primaryPhysician: "",
+  primaryDoctor: "",
   insuranceProvider: "",
   insurancePolicyNumber: "",
   allergies: "",
@@ -20,8 +20,6 @@ export const PatientFormDefaultValues = {
   identificationType: "National ID Card",
   identificationNumber: "",
   identificationDocument: [],
-  treatmentConsent: false,
-  disclosureConsent: false,
   privacyConsent: false,
 };
 

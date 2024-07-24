@@ -137,6 +137,7 @@ export default function RegisterForm({ user }: { user: User }) {
               iconSrc="/assets/icons/email.svg"
               iconAlt="email"
             />
+
             <CustomFormField
               control={form.control}
               fieldType={FormFieldType.PHONE_INPUT}
@@ -145,6 +146,7 @@ export default function RegisterForm({ user }: { user: User }) {
               placeholder="50 012 345"
             />
           </div>
+
           <div className="flex flex-col gap-6 xl:flex-row">
             <CustomFormField
               control={form.control}
@@ -155,6 +157,7 @@ export default function RegisterForm({ user }: { user: User }) {
               iconSrc="/assets/icons/email.svg"
               iconAlt="email"
             />
+
             <CustomFormField
               control={form.control}
               fieldType={FormFieldType.SKELETON}
@@ -164,15 +167,15 @@ export default function RegisterForm({ user }: { user: User }) {
                 <FormControl>
                   <RadioGroup
                     className="flex h-11 gap-6 xl:justify-between"
-                    onVolumeChange={field.onChange}
-                    defaultValue="{field.value}"
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
                   >
                     {GenderOptions.map((option) => (
                       <div key={option} className="radio-group">
                         <RadioGroupItem
                           value={option}
                           id={option}
-                          className="cursor-point"
+                          className="cursor-pointer"
                         />
                         <Label htmlFor={option} className="cursor-pointer">
                           {option}
@@ -241,7 +244,7 @@ export default function RegisterForm({ user }: { user: User }) {
                     alt={doctor.name}
                     width={32}
                     height={32}
-                    className="rounded-full"
+                    className="rounded-full border border-dark-500"
                   />
                   <p>{doctor.name}</p>
                 </div>
@@ -297,7 +300,7 @@ export default function RegisterForm({ user }: { user: User }) {
             <CustomFormField
               control={form.control}
               fieldType={FormFieldType.TEXTAREA}
-              name="Family Medical History"
+              name="familyMedicalHistory"
               label="Family Medical History"
               placeholder="Dementia"
             />
@@ -354,7 +357,7 @@ export default function RegisterForm({ user }: { user: User }) {
             control={form.control}
             name="privacyConsent"
             label="I consent to the processing of my information per Privacy Policy and Terms of Service"
-          ></CustomFormField>
+          />
         </section>
 
         <SubmitButton isLoading={isLoading}>Submit and Continue</SubmitButton>
