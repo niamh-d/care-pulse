@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { redirect } from "next/navigation";
 
 import RegisterForm from "@/components/forms/RegisterForm";
 import { getUser } from "@/lib/actions/patient.actions";
@@ -7,9 +6,7 @@ import { getUser } from "@/lib/actions/patient.actions";
 export default async function Register({
   params: { userId },
 }: SearchParamProps) {
-  // const user = await getUser(userId);
-
-  // if (patient) redirect(`/patients/${userId}/new-appointment`);
+  const user = await getUser(userId);
 
   return (
     <div className="flex h-screen max-h-screen">
@@ -23,8 +20,7 @@ export default async function Register({
             className="mb-12 h-10 w-fit"
           />
 
-          {/* <RegisterForm user={user} /> */}
-          <RegisterForm />
+          <RegisterForm user={user} />
 
           <p className="copyright py-12">&copy; 2024 CarePulse</p>
         </div>

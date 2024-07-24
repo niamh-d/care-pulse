@@ -106,7 +106,7 @@ const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
               selected={field.value}
               onChange={(date) => field.onChange(date)}
               showTimeSelect={showTimeSelect ?? false}
-              dateFormat={dateFormat ?? "MM/dd/yyyy"}
+              dateFormat={dateFormat ?? "dd/MM/yyyy"}
               timeInputLabel="Time:"
               wrapperClassName="date-picker"
             />
@@ -146,7 +146,7 @@ const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
             <Checkbox
               id={name}
               checked={field.value}
-              onChange={field.onChange}
+              onCheckedChange={field.onChange}
             />
             <label htmlFor={name} className="checkbox-label">
               {label}
