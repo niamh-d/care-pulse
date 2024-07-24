@@ -7,7 +7,7 @@ import { getUser } from "@/lib/actions/patient.actions";
 export default async function Register({
   params: { userId },
 }: SearchParamProps) {
-  const user = await getUser(userId);
+  // const user = await getUser(userId);
 
   // if (patient) redirect(`/patients/${userId}/new-appointment`);
 
@@ -23,7 +23,8 @@ export default async function Register({
             className="mb-12 h-10 w-fit"
           />
 
-          <RegisterForm user={user} />
+          {/* <RegisterForm user={user} /> */}
+          <RegisterForm />
 
           <div className="text-14-regular mt-20 flex justify-between">
             <p className="justify-items-end text-dark-600 xl:text-left">

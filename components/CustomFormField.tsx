@@ -23,6 +23,7 @@ import { FormFieldType } from "./forms/PatientForm";
 
 import { E164Number } from "libphonenumber-js/core";
 import { Select, SelectContent, SelectTrigger, SelectValue } from "./ui/select";
+import { Textarea } from "./ui/textarea";
 
 interface CustomProps {
   control: Control<any>;
@@ -48,6 +49,8 @@ const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
     showTimeSelect,
     dateFormat,
     renderSkeleton,
+    disabled,
+    children,
   } = props;
 
   switch (fieldType) {
@@ -118,9 +121,20 @@ const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
               </SelectTrigger>
             </FormControl>
             <SelectContent className="shad-select-content">
-              {props.children}
+              {children}
             </SelectContent>
           </Select>
+        </FormControl>
+      );
+    case FormFieldType.TEXTAREA:
+      return (
+        <FormControl>
+          <Textarea
+            placeholder={placeholder}
+            {...field}
+            className="shad-textArea"
+            disabled={disabled}
+          />
         </FormControl>
       );
     case FormFieldType.SKELETON:
