@@ -74,28 +74,17 @@ const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
       );
     case FormFieldType.PHONE_INPUT:
       return (
-        <div className="flex rounded-md border border-dark-500 bg-dark-400">
-          {iconSrc && (
-            <Image
-              src={iconSrc}
-              alt={iconAlt || "icon"}
-              height={24}
-              width={24}
-              className="ml-2"
-            />
-          )}
-          <FormControl>
-            <PhoneInput
-              defaultCountry="EE"
-              placeholder={placeholder}
-              international
-              withCountryCallingCode
-              value={field.value as E164Number | undefined}
-              onChange={field.onChange}
-              className="input-phone"
-            />
-          </FormControl>
-        </div>
+        <FormControl>
+          <PhoneInput
+            defaultCountry="EE"
+            placeholder={placeholder}
+            international
+            withCountryCallingCode
+            value={field.value as E164Number | undefined}
+            onChange={field.onChange}
+            className="input-phone"
+          />
+        </FormControl>
       );
     case FormFieldType.DATE_PICKER:
       return (
