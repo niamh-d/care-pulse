@@ -58,9 +58,10 @@ export default function RegisterForm({ user }: { user: User }) {
           <h1 className="header">Welcome👋</h1>
           <p className="text-dark-700">Let us know more about yourself..</p>
         </section>
+
         <section className="space-y-6">
           <div className="mb-9 space-y-1">
-            <h2 className="sub-header">Personal Information.</h2>
+            <h2 className="sub-header">Personal Information</h2>
           </div>
         </section>
 
@@ -131,8 +132,49 @@ export default function RegisterForm({ user }: { user: User }) {
             )}
           />
         </div>
-        <div className="flex flex-col gap-6 xl:flex-row"></div>
-        <div className="flex flex-col gap-6 xl:flex-row"></div>
+
+        <div className="flex flex-col gap-6 xl:flex-row">
+          <CustomFormField
+            control={form.control}
+            fieldType={FormFieldType.INPUT}
+            name="address"
+            label="Address"
+            placeholder="Pikk 100, Tallinn, Estonia"
+          />
+
+          <CustomFormField
+            control={form.control}
+            fieldType={FormFieldType.INPUT}
+            name="ocupation"
+            label="Occupation"
+            placeholder="Manager"
+          />
+        </div>
+
+        <div className="flex flex-col gap-6 xl:flex-row">
+          <CustomFormField
+            control={form.control}
+            fieldType={FormFieldType.INPUT}
+            name="emergencyContactName"
+            label="Emergency Contact"
+            placeholder="John Doe"
+            iconSrc="/assets/icons/email.svg"
+            iconAlt="email"
+          />
+          <CustomFormField
+            control={form.control}
+            fieldType={FormFieldType.PHONE_INPUT}
+            name="emergencyContactNumber"
+            label="Emergency Contact No."
+            placeholder="50 012 345"
+          />
+        </div>
+
+        <section className="space-y-6">
+          <div className="mb-9 space-y-1">
+            <h2 className="sub-header">Medical Information</h2>
+          </div>
+        </section>
 
         <SubmitButton isLoading={isLoading}>Get started</SubmitButton>
       </form>
