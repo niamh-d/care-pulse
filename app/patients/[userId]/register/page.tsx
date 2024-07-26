@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import RegisterForm from "@/components/forms/RegisterForm";
+import PatientRegistationForm from "@/components/forms/PatientRegistationForm";
 import { getUser } from "@/lib/actions/patient.actions";
 
 export default async function Register({
@@ -20,7 +20,7 @@ export default async function Register({
             className="mb-12 h-10 w-fit"
           />
 
-          <RegisterForm user={user} />
+          <PatientRegistationForm user={user} />
 
           <p className="copyright py-12">&copy; 2024 CarePulse</p>
         </div>

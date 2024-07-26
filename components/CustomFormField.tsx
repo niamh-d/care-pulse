@@ -18,7 +18,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { FormFieldType } from "./forms/PatientForm";
+import { FormFieldType } from "./forms/WelcomeForm";
 
 import { E164Number } from "libphonenumber-js/core";
 import { Select, SelectContent, SelectTrigger, SelectValue } from "./ui/select";

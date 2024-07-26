@@ -1,4 +1,4 @@
-import PatientForm from "@/components/forms/PatientForm";
+import WelcomeForm from "@/components/forms/WelcomeForm";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -16,7 +16,7 @@ export default function Home() {
             height={1000}
             className="mb-12 h-10 w-fit"
           />
-          <PatientForm />
+          <WelcomeForm />
           <div className="text-14-regular mt-20 flex justify-between">
             <p className="justify-items-end text-dark-600 xl:text-left">
               &copy; 2024 CarePulse

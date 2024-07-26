@@ -13,7 +13,7 @@ import { CustomFormField } from "../CustomFormField";
 import SubmitButton from "../SubmitButton";
 import { PatientFormValidation } from "@/lib/validation";
 import { registerPatient } from "@/lib/actions/patient.actions";
-import { FormFieldType } from "./PatientForm";
+import { FormFieldType } from "./WelcomeForm";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import {
   Doctors,
@@ -25,7 +25,7 @@ import { Label } from "../ui/label";
 import { SelectItem } from "../ui/select";
 import FileUploader from "../FileUploader";
 
-export default function RegisterForm({ user }: { user: User }) {
+export default function PatientRegistationForm({ user }: { user: User }) {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 

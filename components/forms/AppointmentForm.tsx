@@ -22,7 +22,7 @@ export enum FormFieldType {
   SKELETON = "skeleton",
 }
 
-export default function PatientForm() {
+export default function AppointmentForm() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
