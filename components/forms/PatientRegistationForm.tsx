@@ -150,7 +150,6 @@ export default function PatientRegistationForm({ user }: { user: User }) {
               fieldType={FormFieldType.DATE_PICKER}
               name="birthDate"
               label="Date of Birth"
-              placeholder="janedoe@email.com"
               iconSrc="/assets/icons/email.svg"
               iconAlt="email"
             />

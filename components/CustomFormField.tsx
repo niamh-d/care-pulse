@@ -35,6 +35,7 @@ interface CustomProps {
   iconAlt?: string;
   disabled?: boolean;
   dateFormat?: string;
+  timeFormat?: string;
   showTimeSelect?: boolean;
   children?: React.ReactNode;
   renderSkeleton?: (field: any) => React.ReactNode;
@@ -47,6 +48,7 @@ const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
     iconSrc,
     iconAlt,
     showTimeSelect,
+    timeFormat,
     dateFormat,
     renderSkeleton,
     disabled,
@@ -107,6 +109,7 @@ const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
               onChange={(date) => field.onChange(date)}
               showTimeSelect={showTimeSelect ?? false}
               dateFormat={dateFormat ?? "dd/MM/yyyy"}
+              timeFormat={timeFormat ?? "hh:mm"}
               timeInputLabel="Time:"
               wrapperClassName="date-picker"
             />
