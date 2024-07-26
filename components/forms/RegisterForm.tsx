@@ -40,13 +40,7 @@ export default function RegisterForm({ user }: { user: User }) {
   });
 
   async function onSubmit(values: z.infer<typeof PatientFormValidation>) {
-    console.log(form.formState.errors);
-
     setIsLoading(true);
-
-    console.log("hello!!!!");
-
-    console.log(values);
 
     let formData;
     if (
@@ -61,8 +55,6 @@ export default function RegisterForm({ user }: { user: User }) {
       formData.append("blobFile", blobFile);
       formData.append("fileName", values.identificationDocument[0].name);
     }
-
-    console.log(formData);
 
     try {
       const patient = {
