@@ -40,6 +40,8 @@ export default function RegisterForm({ user }: { user: User }) {
   });
 
   async function onSubmit(values: z.infer<typeof PatientFormValidation>) {
+    console.log(form.formState.errors);
+
     setIsLoading(true);
 
     console.log("hello!!!!");
@@ -200,7 +202,7 @@ export default function RegisterForm({ user }: { user: User }) {
             <CustomFormField
               control={form.control}
               fieldType={FormFieldType.INPUT}
-              name="ocupation"
+              name="occupation"
               label="Occupation"
               placeholder="Manager"
             />
