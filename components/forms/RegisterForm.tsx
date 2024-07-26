@@ -53,7 +53,10 @@ export default function RegisterForm({ user }: { user: User }) {
 
       formData = new FormData();
       formData.append("blobFile", blobFile);
-      formData.append("fileName", values.identificationDocument[0].name);
+      formData.append(
+        "fileName",
+        `${user.$id}_IDCOPY_${values.identificationDocument[0].name}`
+      );
     }
 
     try {
