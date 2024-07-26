@@ -1,5 +1,29 @@
 export const GenderOptions = ["male", "female", "other"];
 
+const CreateAppointmentDefaultValues = {
+  selectedDoctor: "",
+  scheduledTime: new Date(),
+  notes: "",
+  visitReason: "",
+};
+
+const CancelAppointmentDefaultValues = {
+  selectedDoctor: "",
+  scheduledTime: new Date(),
+  cancellationReason: "",
+};
+
+export function getAppointmentDefaultValues(type: string) {
+  switch (type) {
+    case "create":
+      return CreateAppointmentDefaultValues;
+    case "cancel":
+      return CancelAppointmentDefaultValues;
+    default:
+      return CreateAppointmentDefaultValues;
+  }
+}
+
 export const PatientFormDefaultValues = {
   name: "",
   email: "",

@@ -11,11 +11,10 @@ import { z } from "zod";
 import { Form } from "@/components/ui/form";
 import { CustomFormField } from "../CustomFormField";
 import SubmitButton from "../SubmitButton";
-import { UserFormValidation } from "@/lib/validation";
-import { Doctors } from "@/constants";
-import { SelectItem } from "../ui/select";
-
+import { Doctors, getAppointmentDefaultValues } from "@/constants";
+import { SelectItem } from "@/components/ui/select";
 import { getAppointmentSchema } from "@/lib/validation";
+import { createAppointment } from "@/lib/actions/appointment.actions";
 
 export enum FormFieldType {
   INPUT = "input",
@@ -32,6 +31,12 @@ enum RequestType {
   CANCEL = "cancel",
 }
 
+enum StatusType {
+  SCHEDULED = "scheduled",
+  PENDING = "pending",
+  CANCELLED = "cancelled",
+}
+
 export default function AppointmentForm({
   type,
   userId,
@@ -41,16 +46,60 @@ export default function AppointmentForm({
   const [isLoading, setIsLoading] = useState(false);
 
   const AppointmentSchema = getAppointmentSchema(type);
+  const appointmentDefaultValues = getAppointmentDefaultValues(type);
 
   const form = useForm<z.infer<typeof AppointmentSchema>>({
     resolver: zodResolver(AppointmentSchema),
     defaultValues: {
-      scheduledTime: new Date(Date.now()),
+      ...appointmentDefaultValues,
     },
   });
 
   async function onSubmit(values: z.infer<typeof AppointmentSchema>) {
     setIsLoading(true);
+
+    let statusType;
+
+    console.log(values);
+
+    switch (type) {
+      case RequestType.CREATE:
+        statusType = StatusType.SCHEDULED;
+        break;
+      case RequestType.CANCEL:
+        statusType = StatusType.CANCELLED;
+        break;
+      default:
+        statusType = StatusType.PENDING;
+    }
+
+    try {
+      if (patientId && type === RequestType.CREATE) {
+        const appointmentData = {
+          userId,
+          patientId,
+          selectedDoctor: values.selectedDoctor,
+          scheduledTime: new Date(values.scheduledTime),
+          visitReason: values.visitReason!,
+          notes: values.notes,
+          status: statusType as Status,
+        };
+
+        console.log(appointmentData);
+
+        const appointment = await createAppointment(appointmentData);
+
+        if (appointment) {
+          form.reset();
+          router.push(`/patients/${userId}/new-appointment/success`);
+        }
+      }
+    } catch (error) {
+      console.error(
+        "An error occurred while creating a new appointment:",
+        error
+      );
+    }
 
     setIsLoading(false);
   }
@@ -106,8 +155,7 @@ export default function AppointmentForm({
               name="scheduledTime"
               label="Expected Appointment Date"
               showTimeSelect
-              dateFormat="dd/MM/yyyy"
-              timeFormat="hh:mm"
+              dateFormat="dd/MM/yyyy  -  h:mm aa"
             />
             <div className="flex flex-col gap-6 xl:flex-row">
               <CustomFormField

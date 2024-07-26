@@ -1,4 +1,3 @@
-import { NotebookTabs } from "lucide-react";
 import { z } from "zod";
 
 export const UserFormValidation = z.object({
@@ -72,14 +71,30 @@ export const CreateAppointmentSchema = z.object({
   visitReason: z
     .string()
     .min(2, "Reason must be at least 2 characters")
-    .max(500, "Reason must be at most 500 characters"),
-  notes: z.string().optional(),
+    .max(500, "Reason must be at most 1000 characters"),
+  notes: z
+    .string()
+    .optional()
+    .or(
+      z
+        .string()
+        .min(2, "Notes must be at least 2 characters")
+        .max(500, "Notes must be at most 500 characters")
+    ),
 });
 
 export const CancelAppointmentSchema = z.object({
   selectedDoctor: z.string().min(2, "Select at least one doctor"),
   scheduledTime: z.coerce.date(),
-  notes: z.string().optional(),
+  notes: z
+    .string()
+    .optional()
+    .or(
+      z
+        .string()
+        .min(2, "Notes must be at least 2 characters")
+        .max(500, "Notes must be at most 500 characters")
+    ),
   cancellationReason: z
     .string()
     .min(2, "Reason must be at least 2 characters")
