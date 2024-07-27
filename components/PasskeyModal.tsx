@@ -3,14 +3,12 @@
 import {
   InputOTP,
   InputOTPGroup,
-  InputOTPSeparator,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
 
 import {
   AlertDialog,
   AlertDialogAction,
-  AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
@@ -18,17 +16,48 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRouter, usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import { decryptKey, encryptKey } from "@/lib/utils";
 
 export default function PasskeyModal() {
   const router = useRouter();
+  const path = usePathname();
   const [open, setOpen] = useState(true);
   const [passkey, setPasskey] = useState("");
   const [error, setError] = useState("");
 
-  const validatePasskey = (e) => {
-    /// TODO: Validate passkey
+  const encryptedKey =
+    typeof window !== "undefined"
+      ? window.localStorage.getItem("adminKey")
+      : null;
+
+  useEffect(() => {
+    const passkey = encryptedKey && decryptKey(encryptedKey);
+
+    if (path) {
+      if (passkey === process.env.NEXT_PUBLIC_ADMIN_PASSKEY) {
+        setOpen(false);
+        router.push("/admin");
+      } else {
+        setOpen(true);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [encryptedKey]);
+
+  const validatePasskey = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault();
+
+    if (passkey === process.env.NEXT_PUBLIC_ADMIN_PASSKEY) {
+      const encryptedKey = encryptKey(passkey);
+      localStorage.setItem("adminKey", encryptedKey);
+      setOpen(false);
+    } else {
+      setError("Invalid passkey");
+    }
   };
 
   const closeModal = () => {
