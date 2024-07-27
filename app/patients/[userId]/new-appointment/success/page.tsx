@@ -11,6 +11,7 @@ export default async function Success({
 }: SearchParamProps) {
   const appointmentId = (searchParams?.appointmentId as string) || "";
   const appointment = await getAppointment(appointmentId);
+  const patientName = appointment.patient.name.split(" ")[0];
 
   const doctor = Doctors.find(
     (doctor) => doctor.name === appointment.selectedDoctor
@@ -35,11 +36,13 @@ export default async function Success({
             height={300}
             width={280}
             alt="success gif"
+            unoptimized
           />
 
           <h2 className="header mb-6 max-w-[600px] text-center">
-            Your <span className="text-green-500">appointment request</span> has
-            been submitted successfully.
+            Thanks, {patientName}! Your{" "}
+            <span className="text-green-500">appointment request</span> has been
+            submitted successfully.
           </h2>
           <p>We will be in touch shortly to confirm.</p>
         </section>

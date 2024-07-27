@@ -6,7 +6,7 @@ import Link from "next/link";
 export default async function AdminPage() {
   const apppointments = await getRecentAppointments();
 
-  console.log(apppointments.documents);
+  console.log(apppointments);
 
   return (
     <div className="mx-auto flex max-w-7xl flex-col space-y-14">
