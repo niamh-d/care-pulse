@@ -1,12 +1,30 @@
-import StatCard from "@/components/StatCard";
-import { getRecentAppointments } from "@/lib/actions/appointment.actions";
 import Image from "next/image";
 import Link from "next/link";
+
+import { DataTable } from "@/components/table/DataTable";
+import { columns, Payment } from "@/components/table/Columns";
+import StatCard from "@/components/StatCard";
+import { getRecentAppointments } from "@/lib/actions/appointment.actions";
+
+async function getData(): Promise<Payment[]> {
+  // Fetch data from your API here.
+  return [
+    {
+      id: "728ed52f",
+      amount: 100,
+      status: "pending",
+      email: "m@example.com",
+    },
+    // ...
+  ];
+}
 
 export default async function AdminPage() {
   const apppointments = await getRecentAppointments();
 
-  console.log(apppointments);
+  const data = await getData();
+
+  console.log("Appointments", apppointments);
 
   return (
     <div className="mx-auto flex max-w-7xl flex-col space-y-14">
@@ -52,6 +70,8 @@ export default async function AdminPage() {
             icon="/assets/icons/status-cancelled.svg"
           />
         </section>
+
+        <DataTable data={data} columns={columns} />
       </main>
     </div>
   );

@@ -10,6 +10,8 @@ import {
 
 import { parseStringify } from "../utils";
 
+import { Appointment } from "@/types/appwrite.types";
+
 export const createAppointment = async (
   appointment: CreateAppointmentParams
 ) => {
@@ -76,7 +78,7 @@ export const getRecentAppointments = async () => {
       documents: appointments.documents,
     };
 
-    return parseStringify(data);
+    return parseStringify(data) as Appointment[];
   } catch (error) {
     console.error(
       "An error occurred while getting recent appointments:",
