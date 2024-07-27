@@ -1,8 +1,13 @@
 import StatCard from "@/components/StatCard";
+import { getRecentAppointments } from "@/lib/actions/appointment.actions";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function AdminPage() {
+export default async function AdminPage() {
+  const apppointments = await getRecentAppointments();
+
+  console.log(apppointments.documents);
+
   return (
     <div className="mx-auto flex max-w-7xl flex-col space-y-14">
       <header className="admin-header">
@@ -29,22 +34,22 @@ export default function AdminPage() {
 
         <section className="admin-stat">
           <StatCard
-            type="appointments"
-            count={5}
-            label="Scheduled appointments"
-            icon="/assets/icons/appointments.svg"
+            type="new"
+            count={apppointments.newCount}
+            label="Appointment requests"
+            icon="/assets/icons/status-new.svg"
           />
           <StatCard
-            type="pending"
-            count={5}
-            label="Appointment requests"
-            icon="/assets/icons/pending.svg"
+            type="scheduled"
+            count={apppointments.scheduledCount}
+            label="Scheduled appointments"
+            icon="/assets/icons/status-scheduled.svg"
           />
           <StatCard
             type="cancelled"
-            count={5}
+            count={apppointments.cancelledCount}
             label="Cancelled appointments"
-            icon="/assets/icons/cancelled.svg"
+            icon="/assets/icons/status-cancelled.svg"
           />
         </section>
       </main>

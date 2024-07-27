@@ -7,8 +7,6 @@ export default async function NewAppointment({
 }: SearchParamProps) {
   const patient = await getPatient(userId);
 
-  console.log(patient);
-
   return (
     <div className="flex h-screen max-h-screen">
       <section className="remove-scrollbar container my-auto">
@@ -22,7 +20,7 @@ export default async function NewAppointment({
           />
 
           <AppointmentForm
-            type="create"
+            type="request"
             userId={userId}
             patientId={patient.$id}
           />

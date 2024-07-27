@@ -5,16 +5,16 @@ interface StatCardProps {
   count: number;
   label: string;
   icon: string;
-  type: "appointments" | "pending" | "cancelled";
+  type: "new" | "scheduled" | "cancelled";
 }
 
 export default function StatCard({ count, label, icon, type }: StatCardProps) {
   return (
     <div
       className={clsx("stat-card", {
-        "bg-appointments": type === "appointments",
-        "bg-pending": type === "pending",
-        "bg-cancelled": type === "cancelled",
+        "bg-status-scheduled": type === "scheduled",
+        "bg-status-new": type === "new",
+        "bg-status-cancelled": type === "cancelled",
       })}
     >
       <div className="flex items-center gap-4">

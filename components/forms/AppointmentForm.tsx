@@ -27,13 +27,14 @@ export enum FormFieldType {
 }
 
 enum RequestType {
-  CREATE = "create",
+  UPDATE = "update",
+  REQUEST = "request",
   CANCEL = "cancel",
 }
 
 enum StatusType {
   SCHEDULED = "scheduled",
-  PENDING = "pending",
+  NEW = "new",
   CANCELLED = "cancelled",
 }
 
@@ -60,32 +61,30 @@ export default function AppointmentForm({
 
     let statusType;
 
-    console.log(values);
-
     switch (type) {
-      case RequestType.CREATE:
+      case RequestType.UPDATE:
         statusType = StatusType.SCHEDULED;
         break;
       case RequestType.CANCEL:
         statusType = StatusType.CANCELLED;
         break;
+      case RequestType.REQUEST:
+        statusType = StatusType.NEW;
       default:
-        statusType = StatusType.PENDING;
+        statusType = StatusType.NEW;
     }
 
     try {
-      if (patientId && type === RequestType.CREATE) {
+      if (patientId && type === RequestType.REQUEST) {
         const appointmentData = {
           userId,
-          patientId,
+          patient: patientId,
           selectedDoctor: values.selectedDoctor,
           scheduledTime: new Date(values.scheduledTime),
           visitReason: values.visitReason!,
           notes: values.notes,
           status: statusType as Status,
         };
-
-        console.log(appointmentData);
 
         const appointment = await createAppointment(appointmentData);
 
@@ -109,7 +108,7 @@ export default function AppointmentForm({
   let buttonLabel;
 
   switch (type) {
-    case RequestType.CREATE:
+    case RequestType.REQUEST:
       buttonLabel = "Schedule appointment";
       break;
     case RequestType.CANCEL:
@@ -124,10 +123,10 @@ export default function AppointmentForm({
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 flex-1">
         <section className="mb-12 space-y-4">
           <h1 className="header">New Appointment</h1>
-          <p className="text-dark-700">Schedule a new appointment.</p>
+          <p className="text-dark-700">Request a new appointment.</p>
         </section>
 
-        {type === RequestType.CREATE && (
+        {type === RequestType.REQUEST && (
           <>
             <CustomFormField
               control={form.control}

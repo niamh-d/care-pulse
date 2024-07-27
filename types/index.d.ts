@@ -6,9 +6,9 @@ declare type SearchParamProps = {
 };
 
 declare type Gender = "male" | "female" | "other";
-declare type Status = "pending" | "scheduled" | "cancelled";
+declare type Status = "new" | "scheduled" | "cancelled";
 
-declare type AppointmentFormRequestType = "create" | "cancel";
+declare type AppointmentFormRequestType = "request" | "update" | "cancel";
 
 declare interface AppointmentFormProps {
   type: AppointmentFormRequestType;
