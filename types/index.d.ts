@@ -14,6 +14,8 @@ declare interface AppointmentFormProps {
   type: AppointmentFormRequestType;
   userId: string;
   patientId: string;
+  appointment?: Appointment;
+  setOpen?: (open: boolean) => void;
 }
 
 declare interface CreateUserParams {

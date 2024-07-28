@@ -14,10 +14,19 @@ export default function StatusBadge({ status }: { status: Status }) {
       <Image
         src={StatusIcon[status]}
         alt={status}
-        width={20}
-        height={20}
-        className="h-full w-full"
+        width={24}
+        height={24}
+        className="h-fit w-3"
       />
+      <p
+        className={clsx("text-12-semibold", {
+          "text-green-500": status === "scheduled",
+          "text-blue-500": status === "new",
+          "text-red-500": status === "cancelled",
+        })}
+      >
+        {status}
+      </p>
     </div>
   );
 }

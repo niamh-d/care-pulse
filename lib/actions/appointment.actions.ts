@@ -11,6 +11,7 @@ import {
 import { parseStringify } from "../utils";
 
 import { Appointment } from "@/types/appwrite.types";
+import { revalidatePath } from "next/cache";
 
 export const createAppointment = async (
   appointment: CreateAppointmentParams
@@ -85,5 +86,30 @@ export const getRecentAppointments = async () => {
       "An error occurred while getting recent appointments:",
       error
     );
+  }
+};
+
+export const updateAppointment = async (
+  appointment: UpdateAppointmentParams
+) => {
+  try {
+    const updatedAppointment = await databases.updateDocument(
+      DATABASE_ID!,
+      APPOINTMENT_COLLECTION_ID!,
+      appointment.appointmentId!,
+      appointment.appointment
+    );
+
+    if (!updatedAppointment) {
+      throw new Error("Appointment not found");
+    }
+
+    // TODO: SMS notification
+
+    revalidatePath("/admin");
+
+    return parseStringify(updatedAppointment);
+  } catch (error) {
+    console.error("An error occurred while updating an appointment:", error);
   }
 };

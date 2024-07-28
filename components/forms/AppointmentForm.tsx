@@ -14,7 +14,10 @@ import SubmitButton from "../SubmitButton";
 import { Doctors, getAppointmentDefaultValues } from "@/constants";
 import { SelectItem } from "@/components/ui/select";
 import { getAppointmentSchema } from "@/lib/validation";
-import { createAppointment } from "@/lib/actions/appointment.actions";
+import {
+  createAppointment,
+  updateAppointment,
+} from "@/lib/actions/appointment.actions";
 
 export enum FormFieldType {
   INPUT = "input",
@@ -42,6 +45,8 @@ export default function AppointmentForm({
   type,
   userId,
   patientId,
+  appointment,
+  setOpen,
 }: AppointmentFormProps) {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
@@ -94,6 +99,27 @@ export default function AppointmentForm({
             `/patients/${userId}/new-appointment/success?appointmentId=${appointment.$id}`
           );
         }
+      } else {
+        const apppointmentToUpdate = {
+          userId,
+          appointmentId: appointment?.$id!,
+          appointment: {
+            selectedDoctor: values?.selectedDoctor,
+            scheduledTime: new Date(values?.scheduledTime),
+            status: statusType as Status,
+            cancelltionReason: values?.cancellationReason,
+          },
+          type,
+        };
+
+        const updatedAppointment = await updateAppointment(
+          apppointmentToUpdate
+        );
+
+        if (updatedAppointment) {
+          setOpen && setOpen(false);
+          form.reset();
+        }
       }
     } catch (error) {
       console.error(
@@ -126,7 +152,7 @@ export default function AppointmentForm({
           <p className="text-dark-700">Request a new appointment.</p>
         </section>
 
-        {type === RequestType.REQUEST && (
+        {type !== RequestType.CANCEL && (
           <>
             <CustomFormField
               control={form.control}
