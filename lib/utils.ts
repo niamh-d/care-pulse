@@ -86,3 +86,7 @@ export function updateAppointmentStatus(type: "cancel" | "schedule") {
       return "new";
   }
 }
+
+export function truncateId(id: string) {
+  return "..." + id.slice(-4);
+}

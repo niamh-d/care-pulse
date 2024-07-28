@@ -9,17 +9,26 @@ import { Appointment } from "@/types/appwrite.types";
 import { formatDateTime } from "@/lib/utils";
 import { Doctors } from "@/constants";
 import AppointmentModal from "@/components/AppointmentModal";
+import { truncateId } from "@/lib/utils";
 
 export const columns: ColumnDef<Appointment>[] = [
   {
-    header: "ID",
+    header: "No.",
     cell: ({ row }) => <p className="text-14-medium">{row.index + 1}</p>,
+  },
+  {
+    header: "ID",
+    cell: ({ row }) => (
+      <p className="text-14-medium">{truncateId(row.original.$id)}</p>
+    ),
   },
   {
     accessorKey: "patient",
     header: "Patient",
     cell: ({ row }) => (
-      <p className="text-14-medium">{row.original.patient.name}</p>
+      <p className="text-14-medium">
+        {row.original.patient.name} ({truncateId(row.original.patient.$id)})
+      </p>
     ),
   },
   {
