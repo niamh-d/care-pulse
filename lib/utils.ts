@@ -75,3 +75,14 @@ export function encryptKey(passkey: string) {
 export function decryptKey(passkey: string) {
   return atob(passkey);
 }
+
+export function updateAppointmentStatus(type: "cancel" | "schedule") {
+  switch (type) {
+    case "cancel":
+      return "cancelled";
+    case "schedule":
+      return "scheduled";
+    default:
+      return "new";
+  }
+}

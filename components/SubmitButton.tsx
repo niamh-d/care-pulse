@@ -28,7 +28,7 @@ export default function SubmitButton({
             height={24}
             className="animate-spin"
           />
-          Loading...
+          Please wait
         </div>
       ) : (
         children

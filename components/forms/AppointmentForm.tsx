@@ -18,6 +18,7 @@ import {
   createAppointment,
   updateAppointment,
 } from "@/lib/actions/appointment.actions";
+import { updateAppointmentStatus } from "@/lib/utils";
 
 export enum FormFieldType {
   INPUT = "input",
@@ -30,7 +31,7 @@ export enum FormFieldType {
 }
 
 enum RequestType {
-  UPDATE = "update",
+  SCHEDULE = "schedule",
   REQUEST = "request",
   CANCEL = "cancel",
 }
@@ -74,7 +75,7 @@ export default function AppointmentForm({
     let statusType;
 
     switch (type) {
-      case RequestType.UPDATE:
+      case RequestType.SCHEDULE:
         statusType = StatusType.SCHEDULED;
         break;
       case RequestType.CANCEL:
@@ -108,15 +109,13 @@ export default function AppointmentForm({
         }
       } else {
         const apppointmentToUpdate = {
-          userId,
           appointmentId: appointment?.$id!,
           appointment: {
             selectedDoctor: values?.selectedDoctor,
             scheduledTime: new Date(values?.scheduledTime),
-            status: statusType as Status,
-            cancelltionReason: values?.cancellationReason,
+            status: updateAppointmentStatus(type) as Status,
+            cancellationReason: values?.cancellationReason,
           },
-          type,
         };
 
         const updatedAppointment = await updateAppointment(
@@ -142,10 +141,13 @@ export default function AppointmentForm({
 
   switch (type) {
     case RequestType.REQUEST:
-      buttonLabel = "Schedule appointment";
+      buttonLabel = "Request appointment";
       break;
     case RequestType.CANCEL:
       buttonLabel = "Cancel appointment";
+      break;
+    case RequestType.SCHEDULE:
+      buttonLabel = "Confirm and send confirmation";
       break;
     default:
       buttonLabel = "Submit";

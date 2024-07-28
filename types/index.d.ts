@@ -8,7 +8,7 @@ declare type SearchParamProps = {
 declare type Gender = "male" | "female" | "other";
 declare type Status = "new" | "scheduled" | "cancelled";
 
-declare type AppointmentFormRequestType = "request" | "update" | "cancel";
+declare type AppointmentFormRequestType = "request" | "schedule" | "cancel";
 
 declare interface AppointmentFormProps {
   type: AppointmentFormRequestType;
@@ -60,8 +60,5 @@ declare type CreateAppointmentParams = {
 
 declare type UpdateAppointmentParams = {
   appointmentId: string;
-  userId: string;
-  timeZone: string;
   appointment: Appointment;
-  type: string;
 };
