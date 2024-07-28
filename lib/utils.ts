@@ -88,5 +88,5 @@ export function updateAppointmentStatus(type: "cancel" | "schedule") {
 }
 
 export function truncateId(id: string) {
-  return "..." + id.slice(-4);
+  return "..." + id.slice(-5);
 }

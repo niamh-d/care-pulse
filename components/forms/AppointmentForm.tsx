@@ -20,6 +20,8 @@ import {
 } from "@/lib/actions/appointment.actions";
 import { updateAppointmentStatus } from "@/lib/utils";
 
+import { truncateId } from "@/lib/utils";
+
 export enum FormFieldType {
   INPUT = "input",
   CHECKBOX = "checkbox",
@@ -161,6 +163,23 @@ export default function AppointmentForm({
             <h1 className="header">New Appointment</h1>
             <p className="text-dark-700">Request a new appointment.</p>
           </section>
+        )}
+
+        {type !== RequestType.REQUEST && (
+          <ul className="flex flex-col gap-2 text-sm">
+            <li>
+              <p className="font-semibold">Appointment ID:</p>{" "}
+              <p className="font-light text-sm">{appointment.$id}</p>
+            </li>
+            <li>
+              <p className="font-semibold">Patient details:</p>
+              <p className="font-light">
+                {appointment.patient.name} |{" "}
+                {truncateId(appointment.patient.$id)} |{" "}
+                {appointment.patient.email}
+              </p>
+            </li>
+          </ul>
         )}
 
         {type !== RequestType.CANCEL && (
