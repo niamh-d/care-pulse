@@ -51,7 +51,7 @@ export default function WelcomeForm() {
         router.push(`/patients/${newUser.$id}/register`);
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
 
     setIsLoading(false);

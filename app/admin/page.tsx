@@ -9,8 +9,6 @@ import { getRecentAppointments } from "@/lib/actions/appointment.actions";
 export default async function AdminPage() {
   const apppointments = await getRecentAppointments();
 
-  console.log("Appointments", apppointments);
-
   return (
     <div className="mx-auto flex max-w-7xl flex-col space-y-14">
       <header className="admin-header">

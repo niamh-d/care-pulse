@@ -92,7 +92,7 @@ export default function PatientRegistationForm({ user }: { user: User }) {
         router.push(`/patients/${user.$id}/new-appointment`);
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
 
     setIsLoading(false);
