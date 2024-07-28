@@ -4,8 +4,8 @@ import { ID, Query } from "node-appwrite";
 
 import {
   DATABASE_ID,
-  APPOINTMENT_COLLECTION_ID,
   databases,
+  APPOINTMENT_COLLECTION_ID,
 } from "../appwrite.config";
 
 import { parseStringify } from "../utils";
@@ -47,8 +47,7 @@ export const getRecentAppointments = async () => {
   try {
     const appointments = await databases.listDocuments(
       DATABASE_ID!,
-      APPOINTMENT_COLLECTION_ID!,
-      [Query.orderDesc("$createdAt")]
+      APPOINTMENT_COLLECTION_ID!
     );
 
     const initialCounts = {
@@ -56,6 +55,8 @@ export const getRecentAppointments = async () => {
       newCount: 0,
       cancelledCount: 0,
     };
+
+    console.log("Appointments", appointments);
 
     const counts = (appointments.documents as Appointment[]).reduce(
       (acc, appointment) => {
@@ -78,7 +79,7 @@ export const getRecentAppointments = async () => {
       documents: appointments.documents,
     };
 
-    return parseStringify(data) as Appointment[];
+    return parseStringify(data);
   } catch (error) {
     console.error(
       "An error occurred while getting recent appointments:",

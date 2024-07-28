@@ -2,95 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { DataTable } from "@/components/table/DataTable";
-import { columns, Payment } from "@/components/table/columns";
+import { columns } from "@/components/table/columns";
 import StatCard from "@/components/StatCard";
 import { getRecentAppointments } from "@/lib/actions/appointment.actions";
 
-async function getData(): Promise<Payment[]> {
-  // Fetch data from your API here.
-  return [
-    {
-      id: "728ed52f",
-      amount: 100,
-      status: "pending",
-      email: "m@example.com",
-    },
-    {
-      id: "728ed52f",
-      amount: 100,
-      status: "pending",
-      email: "m@example.com",
-    },
-    {
-      id: "728ed52f",
-      amount: 100,
-      status: "pending",
-      email: "m@example.com",
-    },
-    {
-      id: "728ed52f",
-      amount: 100,
-      status: "pending",
-      email: "m@example.com",
-    },
-    {
-      id: "728ed52f",
-      amount: 100,
-      status: "pending",
-      email: "m@example.com",
-    },
-    {
-      id: "728ed52f",
-      amount: 100,
-      status: "pending",
-      email: "m@example.com",
-    },
-    {
-      id: "728ed52f",
-      amount: 100,
-      status: "pending",
-      email: "m@example.com",
-    },
-
-    {
-      id: "728ed52f",
-      amount: 100,
-      status: "pending",
-      email: "m@example.com",
-    },
-    {
-      id: "728ed52f",
-      amount: 100,
-      status: "pending",
-      email: "m@example.com",
-    },
-    {
-      id: "728ed52f",
-      amount: 100,
-      status: "pending",
-      email: "m@example.com",
-    },
-    {
-      id: "728ed52f",
-      amount: 100,
-      status: "pending",
-      email: "m@example.com",
-    },
-    {
-      id: "728ed52f",
-      amount: 100,
-      status: "pending",
-      email: "m@example.com",
-    },
-
-    // ...
-  ];
-}
-
 export default async function AdminPage() {
   const apppointments = await getRecentAppointments();
-
-  const data = await getData();
 
   console.log("Appointments", apppointments);
 
@@ -139,7 +56,7 @@ export default async function AdminPage() {
           />
         </section>
 
-        <DataTable data={data} columns={columns} />
+        <DataTable data={apppointments.documents} columns={columns} />
       </main>
     </div>
   );

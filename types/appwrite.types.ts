@@ -28,8 +28,9 @@ export interface Appointment extends Models.Document {
   patient: Patient;
   scheduledTime: Date;
   status: Status;
-  primaryDoctor: string;
+  selectedDoctor: string;
   notes: string;
   userId: string;
+  visitReason: string | null;
   cancellationReason: string | null;
 }
