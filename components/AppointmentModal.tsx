@@ -42,8 +42,9 @@ export default function AppointmentModal({
         <DialogHeader className="mb-4 space-y-3">
           <DialogTitle className="capitalize">{type} Appointment</DialogTitle>
           <DialogDescription>
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
+            {type === "schedule"
+              ? "Review the below details to confirm the appointment."
+              : "Note: This action cannot be undone."}
           </DialogDescription>
         </DialogHeader>
         <AppointmentForm
