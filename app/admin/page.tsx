@@ -36,19 +36,19 @@ export default async function AdminPage() {
         <section className="admin-stat">
           <StatCard
             type="new"
-            count={apppointments.newCount}
+            count={apppointments.newCount || 0}
             label="Appointment requests"
             icon="/assets/icons/status-new.svg"
           />
           <StatCard
             type="scheduled"
-            count={apppointments.scheduledCount}
+            count={apppointments.scheduledCount || 0}
             label="Scheduled appointments"
             icon="/assets/icons/status-scheduled.svg"
           />
           <StatCard
             type="cancelled"
-            count={apppointments.cancelledCount}
+            count={apppointments.cancelledCount || 0}
             label="Cancelled appointments"
             icon="/assets/icons/status-cancelled.svg"
           />
