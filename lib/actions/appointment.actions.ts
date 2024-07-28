@@ -57,8 +57,6 @@ export const getRecentAppointments = async () => {
       cancelledCount: 0,
     };
 
-    console.log("Appointments", appointments);
-
     const counts = (appointments.documents as Appointment[]).reduce(
       (acc, appointment) => {
         if (appointment.status === "scheduled") {
@@ -74,10 +72,16 @@ export const getRecentAppointments = async () => {
       initialCounts
     );
 
+    const sortedAppointments = [
+      ...appointments.documents.filter((a) => a.status === "new"),
+      ...appointments.documents.filter((a) => a.status === "scheduled"),
+      ...appointments.documents.filter((a) => a.status === "cancelled"),
+    ];
+
     const data = {
       totalCount: appointments.total,
       ...counts,
-      documents: appointments.documents,
+      documents: sortedAppointments,
     };
 
     return parseStringify(data);

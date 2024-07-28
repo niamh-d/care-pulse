@@ -63,8 +63,9 @@ export default function AppointmentForm({
       ...appointmentDefaultValues,
       selectedDoctor:
         appointment?.selectedDoctor || appointmentDefaultValues.selectedDoctor,
-      scheduledTime:
-        appointment?.scheduledTime || appointmentDefaultValues.scheduledTime,
+      scheduledTime: new Date(
+        appointment?.scheduledTime || appointmentDefaultValues.scheduledTime
+      ),
       visitReason:
         appointment?.visitReason || appointmentDefaultValues.visitReason,
       notes: appointment?.notes || appointmentDefaultValues.notes,
